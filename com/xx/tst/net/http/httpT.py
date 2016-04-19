@@ -1,10 +1,4 @@
 #coding=utf-8
-'''
-Created on 2016年4月19日
-
-@author: Administrator
-'''
-
 
 def getHttp(url):
     """
