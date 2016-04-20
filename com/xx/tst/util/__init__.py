@@ -28,6 +28,13 @@ def isIntInstance(obj):
     isInt = isinstance(obj,int)
     return isInt
 
+def isBoolInstance(obj):
+    """
+    是否bool类型
+    """
+    isBool = isinstance(obj,bool)
+    return isBool
+
 if __name__ == "__main__":
-    obj = "12"
-    print isIntInstance(obj)
+    obj = True
+    print isBoolInstance(obj)
