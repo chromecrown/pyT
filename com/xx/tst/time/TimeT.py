@@ -71,6 +71,19 @@ def getMonthAll():
     
     return monthShortStr
 
+def getTimestamp(datetimeStr):
+    """
+    transform datetime formated yyyy-MM-dd HH:mm:ss string to timestamp
+    return value of float
+    """
+    import datetime,time
+    longDatetimestamp = 946656000.0
+    d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
+    longDatetimestamp = time.mktime(d.timetuple())
+    return longDatetimestamp
+
+
 if __name__ == "__main__":
-    r = getMonthShort()
+    args = "2015-08-05 12:09:12"
+    r = getTimestamp(args)
     print r
