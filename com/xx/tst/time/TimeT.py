@@ -77,13 +77,56 @@ def getTimestamp(datetimeStr):
     return value of float
     """
     import datetime,time
-    longDatetimestamp = 946656000.0
-    d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
-    longDatetimestamp = time.mktime(d.timetuple())
-    return longDatetimestamp
+    longDatetimestamp = 0.0
+    try:
+        d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
+        longDatetimestamp = time.mktime(d.timetuple())
+        return longDatetimestamp
+    except Exception as e:        
+        return ""
+
+def getYear(datetimeStr):
+    """
+    get year value from the given datetime string
+    """
+    try:
+        if datetimeStr:
+            yearStr = datetimeStr[0:4]
+            return int(yearStr)
+    except Exception as e:
+        print(e)
+        pass
+    return 1970
+
+def getMonth(datetimeStr):
+    """
+    get month value from the given datetime string
+    """
+    try:
+        if datetimeStr:
+            d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
+            monthStr = datetimeStr[5:7]
+            return int(monthStr)
+    except Exception as e:
+        return datetimeStr
+    return 12
+
+def getDay(datetimeStr):
+    """
+    get day value from the given datetime string
+    """
+    try:
+        if datetimeStr:
+            d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
+            dayStr = datetimeStr[8:10]
+            return int(dayStr)
+    except Exception as e:
+        return datetimeStr
+    return 28
 
 
 if __name__ == "__main__":
     args = "2015-08-05 12:09:12"
+    args = "190"
     r = getTimestamp(args)
     print r
