@@ -124,9 +124,21 @@ def getDay(datetimeStr):
         return datetimeStr
     return 28
 
+def getFormatedTime(fmt="%Y%m%d000000"):
+    """
+    get time formate of yyyyMMdd000000 time string
+    """
+    import time
+    tStr = ""
+    try:
+        tStr = time.strftime(fmt,time.localtime(time.time()))
+    except:
+        pass
+        return tStr
+    return tStr 
 
 if __name__ == "__main__":
     args = "2015-08-05 12:09:12"
     args = "190"
-    r = getTimestamp(args)
+    r = getFormatedTime()
     print r
