@@ -81,9 +81,9 @@ def getTimestamp(datetimeStr):
     try:
         d = datetime.datetime.strptime(datetimeStr,"%Y-%m-%d %H:%M:%S")
         longDatetimestamp = time.mktime(d.timetuple())
-        return longDatetimestamp
+        return int(longDatetimestamp)
     except Exception as e:        
-        return ""
+        return 0
 
 def getYear(datetimeStr):
     """
@@ -139,6 +139,6 @@ def getFormatedTime(fmt="%Y%m%d000000"):
 
 if __name__ == "__main__":
     args = "2015-08-05 12:09:12"
-    args = "190"
-    r = getFormatedTime()
+#     args = "190"
+    r = getTimestamp(args)
     print r
