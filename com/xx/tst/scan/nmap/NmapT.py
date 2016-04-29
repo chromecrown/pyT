@@ -1,18 +1,48 @@
 #coding=utf-8
 
-def nmap_scan(ip_str,args=" -vvv "):
+def nmap_scan(ip_str,args=""):
     """
     用指定的参数扫描指定主机 指定端口
     需要的模块nmap 
     """
     import nmap
+    returnVal = {}
+    returnVal["host"] = ip_str
     nm = nmap.PortScanner()
     nm.scan(hosts=ip_str,arguments=str(args))
-    return nm 
+    all_hosts = nm.all_hosts()#list
+    for host in all_hosts:
+        nmHostObj = nm[host]
+        hostname = nmHostObj.hostname()#hostname
+        #get state os host(up|down|unknown|skipped)
+        state = nmHostObj.state()
+        
+        if state == "up":
+            #get all scanned protocols['tcp','udp']in(ip|tcp|udp|sctp)
+            allProtocols = nmHostObj.all_protocols()#type:list
+            print "allProtocols:",allProtocols
+            for protl in allProtocols:
+                allPorts = nmHostObj[protl].keys()#get all ports for protl protocol
+                print "allPorts:",allPorts
+                if protl == "tcp":
+                    tcpDicObj = {}
+                    for port in allPorts:
+                        if nmHostObj.has_tcp(port):#if there  any information for  port/tcp on host
+                            tcpPortInfo = nmHostObj['tcp'][port]#type:dic
+                            tcpDicObj[port] = tcpPortInfo
+#                             print "portInfo and type is:",tcpPortInfo,type(tcpPortInfo)
+                    returnVal["tcp"] = tcpDicObj
+                elif protl == "udp":
+                    udpDicObj = {}
+                    for port in allPorts:
+                        if nmHostObj.has_tcp(port):#if there  any information for port/tcp on host
+                            udpPortInfo = nmHostObj['udp'][port]#type:dic
+                            udpDicObj[port] = udpPortInfo
+                    returnVal["udp"] = udpDicObj
+    print "all_hosts:",all_hosts
+    return returnVal 
 
 if __name__ == "__main__":
-    arg = "le.com"
-    r = nmap_scan(arg,"-p 80,8080 -vvv")
+    arg = "10.150.140.110"
+    r = nmap_scan(arg,args="-sV --script=banner -p 1-65535")
     print r
-    print r.command_line()
-    print r.scaninfo()
