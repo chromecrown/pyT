@@ -11,6 +11,13 @@ def getCurrentTime():
     timeStr = time.strftime("%Y-%m-%d %H:%M:%S")
     return  timeStr
 
+def getCurrentTimestamp():
+    """
+    return current timestamp
+    """
+    import time
+    return time.time()
+
 def getCurrentTimeFmt(fmt="%Y-%m-%d %H:%M:%S"):
     """
     获取当前时间的指定格式
