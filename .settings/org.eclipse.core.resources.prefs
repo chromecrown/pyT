@@ -1,9 +1,13 @@
 eclipse.preferences.version=1
 encoding//com/xx/tst/common/__init__.py=utf-8
 encoding//com/xx/tst/common/commonT.py=utf-8
+encoding//com/xx/tst/file/excel/FileExportT.py=utf-8
 encoding//com/xx/tst/net/ftp/ftpT.py=utf-8
+encoding//com/xx/tst/net/http/LingshuT.py=utf-8
 encoding//com/xx/tst/net/http/httpT.py=utf-8
 encoding//com/xx/tst/scan/nmap/NmapT.py=utf-8
+encoding//com/xx/tst/str/StringT.py=utf-8
 encoding//com/xx/tst/time/TimeT.py=utf-8
+encoding//com/xx/tst/util/UtilT.py=utf-8
 encoding//com/xx/tst/util/__init__.py=utf-8
 encoding/<project>=UTF-8
