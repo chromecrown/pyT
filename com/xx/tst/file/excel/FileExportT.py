@@ -1,5 +1,7 @@
 #coding=utf-8
 
+from pyExcelerator import *
+
 def write2Excel(_lstTuple):
     """
     把参数中指定的数据写入excel
@@ -24,3 +26,27 @@ def write2Excel(_lstTuple):
     xlsx_data = output.getvalue()
     # xlsx_data包含了excel文件
     return xlsx_data
+
+def genCSV():
+    import csv
+    with open('egg2.csv', 'wb') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=' ',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow(['a', '1', '1', '2', '2'])
+        spamwriter.writerow(['b', '3', '3', '6', '4'])
+        spamwriter.writerow(['c', '7', '7', '10', '4'])
+        spamwriter.writerow(['d', '11','11','11', '1'])
+        spamwriter.writerow(['e', '12','12','14', '3'])
+
+def wtExcel():
+    """
+    使用pyExcelerator库写入excel文件
+    """
+    w = Workbook()#创建一个工作薄
+    ws = w.add_sheet("hey,hades")#创建一个工作表
+    ws.write(0,0,'bit')
+    ws.write(0,1,"huang")#在第1行2列写入huang
+    ws.write(1,0,'xuan')#2行1列写入xuan
+    w.save("mini.xls")
+            
+if __name__ == "__main__":
+    wtExcel()
