@@ -3,7 +3,7 @@ import sys,json
 import requests as req
 
 reload(sys)
-sys.setdefaultencoding("utf-8")
+#sys.setdefaultencoding("utf-8")
 
 def getOneIPInfo(IPStr,ipUrl):
     """
