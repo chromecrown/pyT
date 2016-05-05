@@ -57,13 +57,14 @@ def getReqLoginip():
     """
     get login ip from spark sql
     """
+    dayStr = "2016-05-04"
     conn = getMySQLConn(dbname="weblog")
     pageRows = 2000
     page = "pageindex=$i&pagesize=$rows".replace("$rows",str(pageRows))
     url = "http://10.148.16.49:9090/sql/query?dbtype=spark&database=security&project=security&$page&sql=$sql"
     
 #     sql = "select count(1) from uclogin where logintime>='2016-05-03 00:00:00' and logintime<='2016-05-03 23:59:59'"
-    sql = "select count(1) from uclogin where logintime>='2016-05-03 00:00:00' and logintime<='2016-05-03 23:59:59'"
+    sql = "select count(1) from uclogin where logintime>='$dayStr 00:00:00' and logintime<='$dayStr 23:59:59'".replace("$dayStr", dayStr)
     sql = quote(sql)
     urlCnt = url.replace("$sql",sql)
     res  = getHttp(urlCnt)
@@ -78,7 +79,7 @@ def getReqLoginip():
         if pageMod != 0:
             pageCnt = pageCnt + 1
         print "page count:",pageCnt
-        sqlDist = "select distinct loginip from uclogin where logintime>='2016-05-02 00:00:00' and logintime<='2016-05-02 23:59:59'"
+        sqlDist = "select distinct loginip from uclogin where logintime>='$dayStr 00:00:00' and logintime<='$dayStr 23:59:59'".replace("$dayStr",dayStr)
         sqlDist = quote(sqlDist)
         urlPage = url.replace("$sql",sqlDist)
         for pageNum in range(1,pageCnt):
@@ -92,7 +93,7 @@ def getReqLoginip():
                 loginipStr = one["loginip"]
                 print "all rows is ",cntStr,",len of lst:",len(lst),",all pages:",pageCnt
                 print "currentPage:",pageNum,"-->one:",loginipStr
-                insertIPData(conn,loginipStr,'2016-05-02')
+                insertIPData(conn,loginipStr,dayStr)
     except Exception as e:
         print(e)
     finally:
