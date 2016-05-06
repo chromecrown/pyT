@@ -21,21 +21,21 @@ def getHttp(url):
 def getIPBelong(IPStr):
     """
     get ip belong area
+    return value:dict type
     """
     import json
+    returnVal = {}
     try:
         url = "http://ip.taobao.com/service/getIpInfo.php?ip=$"
         url = url.replace("$",IPStr)
         res = getHttp(url)
-        print "res",res
-        print type(res)
         dicData = json.loads(res)
-        print "dic data:",dicData
-        print "type(dicData):",type(dicData)
+        returnVal = dicData
     except Exception as e:
         print(e)
-    
+        return returnVal
+    return returnVal
 
 if __name__ == "__main__":
-    ipstr = "8.8.8.8"
+    ipstr = "1.1.1.7"
     getIPBelong(ipstr)
