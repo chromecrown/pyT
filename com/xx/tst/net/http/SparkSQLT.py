@@ -62,6 +62,7 @@ def getReqLoginip():
     pageRows = 2000
     page = "pageindex=$i&pagesize=$rows".replace("$rows",str(pageRows))
     url = "http://10.148.16.49:9090/sql/query?dbtype=spark&database=security&project=security&$page&sql=$sql"
+    #http://ip.taobao.com/service/getIpInfo.php?ip=~
     
 #     sql = "select count(1) from uclogin where logintime>='2016-05-03 00:00:00' and logintime<='2016-05-03 23:59:59'"
     sql = "select count(1) from uclogin where logintime>='$dayStr 00:00:00' and logintime<='$dayStr 23:59:59'".replace("$dayStr", dayStr)
