@@ -80,6 +80,33 @@ def save2DB(IPStr):
     """
     dicData = getIPBelong(IPStr)
     print "dicData;",dicData
+    try:
+        if dicData.has_key("ip"):
+            ipStr = dicData["ip"]
+        if dicData.has_key("city"):
+            city = dicData["city"]
+        if dicData.has_key("area_id"):
+            area_id = dicData["area_id"]
+        if dicData.has_key("region_id"):
+            region_id = dicData["region_id"]
+        if dicData.has_key("area"):
+            area = dicData["area"]
+        if dicData.has_key("city_id"):
+            city_id = dicData["city_id"]
+        if dicData.has_key("country"):
+            country = dicData["country"]
+        if dicData.has_key("region"):
+            region = dicData["region"]
+        if dicData.has_key("country_id"):
+            country_id = dicData["country_id"]
+        if dicData.has_key("county"):
+            county = dicData["county"]
+        if dicData.has_key("isp_id"):
+            isp_id = dicData["isp_id"]
+        if dicData.has_key("county_id"):
+            county_id = dicData["county_id"]
+    except Exception as e:
+        print(e)
 
 def getSrcIPLstServ():    
     """
@@ -117,16 +144,10 @@ def getSrcIPLstServ():
             sqlGetIP = sqlIP.replace("$day",oneDateStr)
             cursor.execute(sqlGetIP)
             ipResult = cursor.fetchall()
-            startTime = clock()#开始计时
             for ipRow in ipResult:
                 indexIP = indexIP + 1
                 oneIP = ipRow[0]
-                print "date is ",oneDateStr,"index is ",indexIP,oneIP
-                nowTime = clock()
-                internalSec = float((nowTime - startTime)/1000)
-                print "(nowTime - startTime):",internalSec
                 save2DB(oneIP)
-                startTime = clock()
     except Exception as e:
         print(e)
     finally:

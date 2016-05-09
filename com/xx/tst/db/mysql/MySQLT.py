@@ -72,6 +72,28 @@ def insertData():
         db.rollback() 
     finally:
         closeConn(db)
+
+def selectSQL():
+    """
+    查询示例
+    """
+    #打开数据库连接
+    db = getMySQLConn()
+    cursor = db.cursor()
+    sql = "select * from ip_belong"
+    try:
+        #执行sql语句
+        cursor.execute(sql)
+        #获取所有记录列表
+        results = cursor.fetchall()
+        for row in results:
+            ipval = row[0] 
+            country = row[1] 
+            city = row[2] 
+    except Exception as e:
+        print(e)
+    finally:
+        closeConn(db)
         
 def insertIPData(IPStr,getDay):
     """
