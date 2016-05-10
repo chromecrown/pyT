@@ -9,6 +9,7 @@ def getMySQLConn(host='10.150.140.108',usr='root',pwd='mysqlroot',dbname='weblog
     """
     #open db Connection
     conn = MySQLdb.connect(host,usr,pwd,dbname)
+    conn.set_character_set('utf8') # 很重要的一行代码
     return conn
 
 def closeConn(dbConn):
