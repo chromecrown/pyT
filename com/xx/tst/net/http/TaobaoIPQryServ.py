@@ -3,10 +3,6 @@
 from urllib import quote
 import urllib
 import MySQLdb
-import sys,os
-
-reload(sys)
-sys.setdefaultencoding('utf8')
 
 def getMySQLConn(host='10.150.140.108',usr='root',pwd='mysqlroot',dbname='weblog'):
     
@@ -15,6 +11,7 @@ def getMySQLConn(host='10.150.140.108',usr='root',pwd='mysqlroot',dbname='weblog
     """
     #open db Connection
     conn = MySQLdb.connect(host,usr,pwd,dbname)
+    conn.set_character_set('utf8') # 很重要的一行代码
     return conn
 
 def closeConn(dbConn):
@@ -53,6 +50,7 @@ def getHttp(url):
         res = response.read()
     except Exception as e:
         print "ee:",e
+        pass
     return res
 
 def getIPBelong(IPStr):
@@ -160,10 +158,11 @@ def save2DB(IPStr,dateStr):
             isp = dicData["isp"]
         else:
             isp = ""
-            
+        
+        operator = "pyProgram"            
         cursor = conn.cursor()
-        sql = "INSERT INTO ip_belong(ip,country,country_id,area,area_id,region,region_id,city,city_id,county,county_id,isp,isp_id,update_time,insert_day)" +\
-        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(IPStr,country,country_id,area,area_id,region,region_id,city,city_id,county,county_id,isp,isp_id,updatetime,dateStr)
+        sql = "INSERT INTO ip_belong(ip,country,country_id,area,area_id,region,region_id,city,city_id,county,county_id,isp,isp_id,update_time,operator,insert_day)" +\
+        " VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"%(IPStr,country,country_id,area,area_id,region,region_id,city,city_id,county,county_id,isp,isp_id,updatetime,operator,dateStr)
         print "method ==>save2DB=>sql->",sql
         cursor.execute(sql)
         conn.commit()
@@ -224,6 +223,8 @@ def getSrcIPLstServ():
                 indexIP = indexIP + 1
                 oneIP = ipRow[0]
                 save2DB(oneIP,oneDateStr)
+                delSQL = "DELETE from ip_req where hostip='%s'"%(oneIP)
+                execSQL(delSQL)
     except Exception as e:
         print(e)
     finally:
