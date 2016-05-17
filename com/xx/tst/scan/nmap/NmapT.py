@@ -3,7 +3,26 @@
 def nmap_scan(ip_str,args=""):
     """
     用指定的参数扫描指定主机 指定端口
-    需要的模块nmap 
+    需要的模块nmap
+    scan result:
+    {
+        'host': '10.182.200.75',
+        'tcp': {
+            80: {
+                'product': 'nginx',
+                'state': 'open',
+                'version': '1.7.12',
+                'name': 'http',
+                'conf': '10',
+                'script': {
+                    'http-server-header': 'nginx/1.7.12'
+                },
+                'extrainfo': '',
+                'reason': 'syn-ack',
+                'cpe': 'cpe: /a: igor_sysoev: nginx: 1.7.12'
+            }
+        }
+    }
     """
     import nmap
     returnVal = {}
@@ -38,11 +57,13 @@ def nmap_scan(ip_str,args=""):
                         if nmHostObj.has_tcp(port):#if there  any information for port/tcp on host
                             udpPortInfo = nmHostObj['udp'][port]#type:dic
                             udpDicObj[port] = udpPortInfo
-                    returnVal["udp"] = udpDicObj
+                    returnVal["udp"] = udpDicObj  
     print "all_hosts:",all_hosts
     return returnVal 
 
 if __name__ == "__main__":
     arg = "10.150.140.110"
-    r = nmap_scan(arg,args="-sV --script=banner -p 1-65535")
-    print r
+    arg = "10.182.200.75"
+#     arg = "103.1.40.108"
+    r = nmap_scan(arg,args=" -Pn -sV --script=banner -p 80")
+    print "==>",r
