@@ -186,7 +186,7 @@ def insertIPData(conn,IPStr,getDay):
 def getSrcIPLstServ():    
     """
     """
-    from time import clock
+    import time
     
     dateLst = []
     #打开数据库连接
@@ -219,9 +219,14 @@ def getSrcIPLstServ():
             sqlGetIP = sqlIP.replace("$day",oneDateStr)
             cursor.execute(sqlGetIP)
             ipResult = cursor.fetchall()
+            cnter = 0
             for ipRow in ipResult:
+                cnter = cnter + 1
                 indexIP = indexIP + 1
                 oneIP = ipRow[0]
+                if cnter >= 10:
+                    time.sleep(1)
+                    cnter = 0
                 save2DB(oneIP,oneDateStr)
                 delSQL = "DELETE from ip_req where hostip='%s'"%(oneIP)
                 execSQL(delSQL)
