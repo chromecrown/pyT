@@ -1,10 +1,5 @@
 #coding=utf-8
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8') 
-
-
 def getURLTitleByReq(URL,timeout=10):
     """
     调用requests请求http
