@@ -38,4 +38,5 @@ def getIPBelong(IPStr):
 
 if __name__ == "__main__":
     ipstr = "1.1.1.7"
-    getIPBelong(ipstr)
+    ret = getIPBelong(ipstr)
+    print ret
