@@ -4,6 +4,7 @@ def nmap_scan(ip_str,args=""):
     """
     用指定的参数扫描指定主机 指定端口
     需要的模块nmap
+    参数  -vvv -sV --script=banner
     scan result:
     {
         'host': '10.182.200.75',
@@ -39,7 +40,7 @@ def nmap_scan(ip_str,args=""):
         if state == "up":
             #get all scanned protocols['tcp','udp']in(ip|tcp|udp|sctp)
             allProtocols = nmHostObj.all_protocols()#type:list
-            print "allProtocols:",allProtocols
+#             print "allProtocols:",allProtocols
             for protl in allProtocols:
                 allPorts = nmHostObj[protl].keys()#get all ports for protl protocol
                 print "allPorts:",allPorts
@@ -58,12 +59,13 @@ def nmap_scan(ip_str,args=""):
                             udpPortInfo = nmHostObj['udp'][port]#type:dic
                             udpDicObj[port] = udpPortInfo
                     returnVal["udp"] = udpDicObj  
-    print "all_hosts:",all_hosts
+#     print "all_hosts:",all_hosts
     return returnVal 
 
 if __name__ == "__main__":
-    arg = "10.150.140.110"
-    arg = "10.182.200.75"
+    arg = "10.150.140.110"#tomcat
+    arg = "10.182.200.75"#nginx
+    arg = "10.154.29.58"#1433 mssql
 #     arg = "103.1.40.108"
-    r = nmap_scan(arg,args=" -Pn -sV --script=banner -p 80")
+    r = nmap_scan(arg,args="－vvv -sV --script=banner -p 1433")
     print "==>",r
