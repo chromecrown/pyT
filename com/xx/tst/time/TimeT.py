@@ -32,6 +32,19 @@ def getCurrentTimeFmt(fmt="%Y-%m-%d %H:%M:%S"):
         return ""
     return  timeStr
 
+def getTimeStrFromTimestamp(timestamp):
+    """
+    转换时间戳为时间字符串
+    """
+    import time
+    dividend = 1
+    s = str(timestamp)[0:10]
+    timestamp2 = int(s)
+    print timestamp2
+    x = time.localtime(timestamp2)
+    timestr = time.strftime('%Y-%m-%d %H:%M:%S',x)
+    return timestr
+
 def getCurrentWeekShort():
     """
     获取当前星期英文简写
@@ -146,6 +159,5 @@ def getFormatedTime(fmt="%Y%m%d000000"):
 
 if __name__ == "__main__":
     args = "2015-08-05 12:09:12"
-#     args = "190"
-    r = getTimestamp(args)
+    r = getTimeStrFromTimestamp(1464591795235)
     print r
