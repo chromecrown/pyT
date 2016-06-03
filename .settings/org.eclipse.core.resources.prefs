@@ -12,6 +12,7 @@ encoding//com/xx/tst/net/http/SparkSQLT.py=utf-8
 encoding//com/xx/tst/net/http/TitleFind.py=utf-8
 encoding//com/xx/tst/net/http/httpT.py=utf-8
 encoding//com/xx/tst/net/tomcat/TomcatService.py=utf-8
+encoding//com/xx/tst/os/PlatformT.py=utf-8
 encoding//com/xx/tst/os/__init__.py=utf-8
 encoding//com/xx/tst/scan/nmap/NmapT.py=utf-8
 encoding//com/xx/tst/scan/redis/RedisNoAuthT.py=utf-8
