@@ -27,3 +27,7 @@ def getMd5Code2(srcStr):
     except Exception as e:
         print(e)
     return mCode
+if __name__ == "__main__":
+    s = "1"
+    r = getMd5Code2(s)
+    print r
