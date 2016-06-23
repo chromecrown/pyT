@@ -8,7 +8,7 @@ taskLst = []
 
 def doJob(task):
     """
-    the specify process job method
+    线程将调度执行的方法
     """
     try:
         print "current thread name is %s"%(threading.current_thread().getName())
@@ -21,6 +21,9 @@ def doJob(task):
 def mainCall(times=5,func=None,taskLst=[]):
     """
     线程调度方法
+    times:cpu核心倍数
+    func:多线程将要调度的方法
+    taskLst:任务列表
     """
     cpus = times*cpu_count()#同时开启的最大线程数量
     activeCnt = threading.activeCount()#当前活动的线程数
