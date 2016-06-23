@@ -28,14 +28,14 @@ def mainCall(times=5,func=None,taskLst=[]):
     cpus = times*cpu_count()#同时开启的最大线程数量
     activeCnt = threading.activeCount()#当前活动的线程数
     taskCnt = len(taskLst)#任务总数
-    if taskCnt > 0:
-        if taskCnt < cpus:
+    if taskCnt > 0:#确保任务总数大于0
+        if taskCnt < cpus:#任务总数小于最大线程数量
             for e in taskLst:
                 t = threading.Thread(target=func,args=(e,))
                 t.start()
         elif taskCnt > cpus:
             while taskCnt > 0:
-                needCnt = cpus - threading.activeCount() + activeCnt
+                needCnt = cpus - threading.activeCount() + activeCnt#计算需要启动的线程数量
                 if needCnt == 0:
                     taskCnt = len(taskLst)
                     time.sleep(1)
