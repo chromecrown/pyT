@@ -11,28 +11,34 @@ def mainCall(times=5,func=None,taskLst=[]):
     func:多线程将要调度的方法
     taskLst:任务列表
     """
-    cpus = times*cpu_count()#同时开启的最大线程数量
-    activeCnt = threading.activeCount()#当前活动的线程数
-    taskCnt = len(taskLst)#任务总数
-    initTaskCnt = len(taskLst)#任务总数
-    if taskCnt > 0:#确保任务总数大于0
-        if taskCnt < cpus:#任务总数小于最大线程数量
-            for e in taskLst:
-                t = threading.Thread(target=func,args=(e,))
-                t.start()
-        elif taskCnt > cpus:
-            while taskCnt > 0:
-                needCnt = cpus - threading.activeCount() + activeCnt#计算需要启动的线程数量
-                if needCnt == 0:
-                    taskCnt = len(taskLst)
-                    time.sleep(1)
-                    print "need start thread count is %d,all task count is %d,left task count is %s"%(needCnt,initTaskCnt,taskCnt)
-                elif needCnt > 0:
-                    for e in range(0,needCnt):
+    try:
+        cpus = times*cpu_count()#同时开启的最大线程数量
+        activeCnt = threading.activeCount()#当前活动的线程数
+        taskCnt = len(taskLst)#任务总数
+        initTaskCnt = len(taskLst)#任务总数
+        print "max thread count:%d,current thread count:%d,initial task count:%d"%(cpus,activeCnt,initTaskCnt)
+        if taskCnt > 0:#确保任务总数大于0
+            if taskCnt < cpus:#任务总数小于最大线程数量
+                print "task count:%d,less than max thread count"%(taskCnt)
+                for e in taskLst:
+                    t = threading.Thread(target=func,args=(e,))
+                    t.start()
+            elif taskCnt > cpus:
+                print "task count:%d,more than max thread count"%(taskCnt)
+                while taskCnt > 0:
+                    needCnt = cpus - threading.activeCount() + activeCnt#计算需要启动的线程数量
+                    if needCnt == 0:
                         taskCnt = len(taskLst)
-                        if taskCnt > 0:
-                            t2 = threading.Thread(target=func,args=(taskLst.pop(),))
-                            t2.start()
+                        time.sleep(1)
+                        print "need start thread count is %d,all task count is %d,left task count is %s"%(needCnt,initTaskCnt,taskCnt)
+                    elif needCnt > 0:
+                        for e in range(0,needCnt):
+                            taskCnt = len(taskLst)
+                            if taskCnt > 0:
+                                t2 = threading.Thread(target=func,args=(taskLst.pop(),))
+                                t2.start()
+    except Exception as e:
+        print(e)
 
 def nmapScan(ip_str,args=""):
     """
@@ -96,15 +102,16 @@ def nmapScan(ip_str,args=""):
 #     print "all_hosts:",all_hosts
     return returnVal
 
-def nmapScanServ(ipStr,args=""):
+def nmapScanServ(ipStr,args="-vvv -sV --script=banner -p1-65535"):
     """
     """
+    print "now will scan ip is %s"%(ipStr)
     scanRes = nmapScan(ipStr, args)
     print "-->",scanRes
     
 if __name__ == "__main__":
     taskLst = []
-    with open("outip.txt","r") as fi:
+    with open("ip.txt","r") as fi:
         for e in fi:
             taskLst.append(e.strip())
-    mainCall(times=5,func=nmapScanServ,taskLst=taskLst)
+    mainCall(times=10,func=nmapScanServ,taskLst=taskLst)
