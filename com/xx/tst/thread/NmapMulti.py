@@ -14,6 +14,7 @@ def mainCall(times=5,func=None,taskLst=[]):
     cpus = times*cpu_count()#同时开启的最大线程数量
     activeCnt = threading.activeCount()#当前活动的线程数
     taskCnt = len(taskLst)#任务总数
+    initTaskCnt = len(taskLst)#任务总数
     if taskCnt > 0:#确保任务总数大于0
         if taskCnt < cpus:#任务总数小于最大线程数量
             for e in taskLst:
@@ -25,7 +26,7 @@ def mainCall(times=5,func=None,taskLst=[]):
                 if needCnt == 0:
                     taskCnt = len(taskLst)
                     time.sleep(1)
-                    print "need start thread count is %d,left task count is %s"%(needCnt,taskCnt)
+                    print "need start thread count is %d,all task count is %d,left task count is %s"%(needCnt,initTaskCnt,taskCnt)
                 elif needCnt > 0:
                     for e in range(0,needCnt):
                         taskCnt = len(taskLst)
