@@ -30,7 +30,7 @@ def postHttp(reqUrl,postArgDic={}):
         return res
     except Exception as e:
         print(e)
-        return "-1"
+        return -1
 
 def postHttp2(url,data={}):
     """
@@ -46,6 +46,7 @@ def postHttp2(url,data={}):
         return response.read()
     except Exception as e:
         print(e)
+        return -1
 
 
 if __name__ == "__main__":
