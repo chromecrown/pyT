@@ -1,8 +1,24 @@
 #coding=utf-8
 
 import threading
-import time
+import time,json
 from multiprocessing import cpu_count
+
+def postHttp(url,data={}):
+    """
+    send http post request
+    """
+    import urllib,urllib2
+    try:
+        req = urllib2.Request(url)
+        data = urllib.urlencode(data)
+        #enable cookie
+        openner = urllib2.build_opener(urllib2.HTTPCookieProcessor())
+        response = openner.open(req,data)
+        return response.read()
+    except Exception as e:
+        print(e)
+        return -1
 
 def mainCall(times=5,func=None,taskLst=[]):
     """
@@ -104,10 +120,19 @@ def nmapScan(ip_str,args=""):
 
 def nmapScanServ(ipStr,args="-vvv -sV --script=banner -p1-65535"):
     """
+    调用nmap扫描
     """
-    print "now will scan ip is %s"%(ipStr)
-    scanRes = nmapScan(ipStr, args)
-    print "-->",scanRes
+    try:
+        print "now will scan ip is %s"%(ipStr)
+        scanRes = nmapScan(ipStr, args)
+        url = "http://10.75.139.88:8000/pentest/open/rxInfo"
+        data = {}
+        data["scanInfo"] = json.dumps(scanRes)
+        resp = postHttp(url, data)
+        print "response from http:",resp
+        print "-->",scanRes
+    except Exception as e:
+        print(e)
     
 if __name__ == "__main__":
     taskLst = []

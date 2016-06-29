@@ -1,5 +1,9 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//com/xx/tst/arg/OptparseT.py=utf-8
+=======
+encoding//com/CallMain.py=utf-8
+>>>>>>> 75fccd5659683c1af1e1deb57149217179802875
 encoding//com/xx/tst/common/__init__.py=utf-8
 encoding//com/xx/tst/common/commonT.py=utf-8
 encoding//com/xx/tst/db/mysql/MySQLT.py=utf-8
@@ -11,6 +15,7 @@ encoding//com/xx/tst/net/http/AutoBaiduWenkuSignin.py=utf-8
 encoding//com/xx/tst/net/http/IPBelongT.py=utf-8
 encoding//com/xx/tst/net/http/LingshuT.py=utf-8
 encoding//com/xx/tst/net/http/SparkSQLT.py=utf-8
+encoding//com/xx/tst/net/http/TaobaoIPQryServ.py=utf-8
 encoding//com/xx/tst/net/http/TitleFind.py=utf-8
 encoding//com/xx/tst/net/http/httpT.py=utf-8
 encoding//com/xx/tst/net/tomcat/TomcatService.py=utf-8
