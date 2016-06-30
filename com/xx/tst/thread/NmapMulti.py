@@ -20,6 +20,15 @@ def postHttp(url,data={}):
         print(e)
         return -1
 
+def getCurrentTime():
+    """
+    获取当前时间
+    返回当前时间字符串
+    格式  
+    """
+    timeStr = time.strftime("%Y-%m-%d %H:%M:%S")
+    return  timeStr
+
 def mainCall(times=5,func=None,taskLst=[]):
     """
     线程调度方法
@@ -28,6 +37,7 @@ def mainCall(times=5,func=None,taskLst=[]):
     taskLst:任务列表
     """
     try:
+        startTime = getCurrentTime()
         cpus = times*cpu_count()#同时开启的最大线程数量
         activeCnt = threading.activeCount()#当前活动的线程数
         taskCnt = len(taskLst)#任务总数
@@ -46,7 +56,8 @@ def mainCall(times=5,func=None,taskLst=[]):
                     if needCnt == 0:
                         taskCnt = len(taskLst)
                         time.sleep(1)
-                        print "need start thread count is %d,all task count is %d,left task count is %s"%(needCnt,initTaskCnt,taskCnt)
+                        nowTime = getCurrentTime()
+                        print "start time is %s,now time is %s,need start thread count is %d,all task count is %d,left task count is %s"%(startTime,nowTime,needCnt,initTaskCnt,taskCnt)
                     elif needCnt > 0:
                         for e in range(0,needCnt):
                             taskCnt = len(taskLst)
