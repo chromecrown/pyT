@@ -52,6 +52,9 @@ def getFile(hostname,port,username,password):
         sftp = paramiko.SFTPClient.from_transport(t)
         remotepath = "/var/log/secure"
         localpath = "D:/data/secure"
+        files = sftp.listdir("/root/")
+        for f in files:
+            print "f-->",f
         sftp.get(remotepath,localpath)
         t.close()
     except Exception as e:
